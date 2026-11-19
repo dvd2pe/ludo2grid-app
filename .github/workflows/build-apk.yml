@@ -1,0 +1,44 @@
+name: build-apk
+
+# Build dell'APK release di JiuTianJiuDi (ludo_grid) su ogni push del branch jiutianjiudi
+on:
+  push:
+    branches: ['jiutianjiudi']
+    paths: ['ludo_grid/**', '.github/workflows/build-apk.yml']
+  workflow_dispatch:
+
+jobs:
+  apk:
+    name: Build release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: ludo_grid
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.50.0'
+          cache: true
+
+      - name: Pub get
+        run: flutter pub get
+
+      - name: Build APK (release, arm64-v8a + armeabi-v7a)
+        run: flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JiuTianJiuDi-release-apk
+          path: ludo_grid/build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+          if-no-files-found: error

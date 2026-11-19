@@ -1,0 +1,152 @@
+name: jiutianjiudi
+description: "JiuTianJiuDi - WebView del gioco web ludo-based (grid9) bundlato offline."
+publish_to: 'none'
+version: 2.1.1+22
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^4.14.0
+  webview_flutter_android: ^4.14.0
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  # build web ludo-based (grid9): ogni directory e file root dichiarato esplicitamente
+  assets:
+    - assets/www/
+    - assets/www/assets/
+    - assets/www/assets/internal/
+    - assets/www/assets/internal/import/
+    - assets/www/assets/internal/import/09/
+    - assets/www/assets/internal/native/
+    - assets/www/assets/internal/native/02/
+    - assets/www/assets/main/
+    - assets/www/assets/main/import/
+    - assets/www/assets/main/import/04/
+    - assets/www/assets/main/import/08/
+    - assets/www/assets/main/import/0a/
+    - assets/www/assets/main/import/0c/
+    - assets/www/assets/main/import/0d/
+    - assets/www/assets/main/import/0e/
+    - assets/www/assets/main/import/b7/
+    - assets/www/assets/main/native/
+    - assets/www/assets/main/native/01/
+    - assets/www/assets/main/native/04/
+    - assets/www/assets/main/native/06/
+    - assets/www/assets/main/native/07/
+    - assets/www/assets/main/native/0b/
+    - assets/www/assets/main/native/0f/
+    - assets/www/assets/main/native/1c/
+    - assets/www/assets/main/native/1f/
+    - assets/www/assets/main/native/21/
+    - assets/www/assets/main/native/22/
+    - assets/www/assets/main/native/26/
+    - assets/www/assets/main/native/34/
+    - assets/www/assets/main/native/38/
+    - assets/www/assets/main/native/3b/
+    - assets/www/assets/main/native/3c/
+    - assets/www/assets/main/native/47/
+    - assets/www/assets/main/native/4c/
+    - assets/www/assets/main/native/52/
+    - assets/www/assets/main/native/55/
+    - assets/www/assets/main/native/56/
+    - assets/www/assets/main/native/5a/
+    - assets/www/assets/main/native/61/
+    - assets/www/assets/main/native/65/
+    - assets/www/assets/main/native/68/
+    - assets/www/assets/main/native/69/
+    - assets/www/assets/main/native/6f/
+    - assets/www/assets/main/native/74/
+    - assets/www/assets/main/native/78/
+    - assets/www/assets/main/native/7d/
+    - assets/www/assets/main/native/80/
+    - assets/www/assets/main/native/86/
+    - assets/www/assets/main/native/88/
+    - assets/www/assets/main/native/92/
+    - assets/www/assets/main/native/a0/
+    - assets/www/assets/main/native/a8/
+    - assets/www/assets/main/native/b2/
+    - assets/www/assets/main/native/b6/
+    - assets/www/assets/main/native/b9/
+    - assets/www/assets/main/native/c2/
+    - assets/www/assets/main/native/d0/
+    - assets/www/assets/main/native/d5/
+    - assets/www/assets/main/native/d6/
+    - assets/www/assets/main/native/d9/
+    - assets/www/assets/main/native/dd/
+    - assets/www/assets/main/native/e0/
+    - assets/www/assets/main/native/e4/
+    - assets/www/assets/main/native/e7/
+    - assets/www/assets/main/native/e8/
+    - assets/www/assets/main/native/f5/
+    - assets/www/assets/resources/
+    - assets/www/assets/resources/import/
+    - assets/www/assets/resources/import/01/
+    - assets/www/assets/resources/import/02/
+    - assets/www/assets/resources/import/03/
+    - assets/www/assets/resources/import/04/
+    - assets/www/assets/resources/import/06/
+    - assets/www/assets/resources/import/07/
+    - assets/www/assets/resources/import/09/
+    - assets/www/assets/resources/import/0a/
+    - assets/www/assets/resources/import/0b/
+    - assets/www/assets/resources/import/0c/
+    - assets/www/assets/resources/import/0e/
+    - assets/www/assets/resources/import/48/
+    - assets/www/assets/resources/import/77/
+    - assets/www/assets/resources/import/79/
+    - assets/www/assets/resources/import/7c/
+    - assets/www/assets/resources/import/9b/
+    - assets/www/assets/resources/import/b4/
+    - assets/www/assets/resources/native/
+    - assets/www/assets/resources/native/07/
+    - assets/www/assets/resources/native/11/
+    - assets/www/assets/resources/native/16/
+    - assets/www/assets/resources/native/1d/
+    - assets/www/assets/resources/native/2c/
+    - assets/www/assets/resources/native/32/
+    - assets/www/assets/resources/native/45/
+    - assets/www/assets/resources/native/57/
+    - assets/www/assets/resources/native/61/
+    - assets/www/assets/resources/native/67/
+    - assets/www/assets/resources/native/71/
+    - assets/www/assets/resources/native/76/
+    - assets/www/assets/resources/native/77/
+    - assets/www/assets/resources/native/78/
+    - assets/www/assets/resources/native/7c/
+    - assets/www/assets/resources/native/8c/
+    - assets/www/assets/resources/native/8c/8cc5c8d0-9d83-4249-8c1a-84f2c6ea2b62/
+    - assets/www/assets/resources/native/8e/
+    - assets/www/assets/resources/native/95/
+    - assets/www/assets/resources/native/99/
+    - assets/www/assets/resources/native/b4/
+    - assets/www/assets/resources/native/c9/
+    - assets/www/assets/resources/native/cd/
+    - assets/www/assets/resources/native/d0/
+    - assets/www/assets/resources/native/d6/
+    - assets/www/assets/resources/native/d8/
+    - assets/www/assets/resources/native/ed/
+    - assets/www/assets/resources/native/f0/
+    - assets/www/assets/resources/native/f6/
+    - assets/www/country-flags/
+    - assets/www/grid9/
+    - assets/www/src/
+    - assets/www/IG_Tournament_BG.png
+    - assets/www/cocos2d-js-min.js
+    - assets/www/grid9.js
+    - assets/www/index.html
+    - assets/www/ludo.html
+    - assets/www/main.js
+    - assets/www/raven.min.js
+    - assets/www/red_close.png
+    - assets/www/red_close_pressed.png
+    - assets/www/style-mobile.css
