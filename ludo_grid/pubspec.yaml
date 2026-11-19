@@ -1,7 +1,7 @@
 name: jiutianjiudi
-description: "JiuTianJiuDi - WebView del gioco web ludo-based (grid9) bundlato offline."
+description: "JiuTianJiuDi - WebView del gioco web grid9 (9 quadranti 3x3, numeri 1-9) bundlato offline."
 publish_to: 'none'
-version: 2.1.1+22
+version: 2.2.0+23
 
 environment:
   sdk: ^3.14.0

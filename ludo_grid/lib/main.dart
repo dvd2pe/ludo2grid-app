@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show SystemNavigator, rootBundle;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 
-/// JiuTianJiuDi — app Flutter minimale: serve il gioco web ludo-based
-/// (assets/www/ludo.html + grid9.js: sfondo blu, 9 quadranti con ten-frame
-/// 1-10, HUD monete/Classic/gemme/ingranaggi, loading blu senza logo con
-/// barra azzurra) bundlato offline e lo mostra in un WebView.
+/// JiuTianJiuDi — app Flutter minimale: serve il gioco web (assets/www/ludo.html
+/// + grid9.js: tavola a 9 quadranti con slot 3x3 numerati 1-9, vassoio con le
+/// 9 pedine colorate, schermata iniziale PLAY/RESET, nessun riferimento ludo)
+/// bundlato offline e lo mostra in un WebView.
 ///
 /// Il gioco viene servito con un server HTTP locale (127.0.0.1) e non più
 /// con loadFlutterAsset/file://: da una pagina file:// le XHR del bootstrap
@@ -138,16 +138,36 @@ class _LudoShellPageState extends State<LudoShellPage> {
         .setMediaPlaybackRequiresUserGesture(false);
   }
 
+  /// Tasto indietro Android: dalla tavola torna alla SCHERMATA INIZIALE del
+  /// gioco (Grid9API.onBack gestisce l'overlay home in JS); se siamo già in
+  /// home, o il gioco non è ancora pronto, l'app si chiude normalmente.
+  Future<void> _onSystemBack() async {
+    try {
+      final r = await _controller.runJavaScriptReturningFuture(
+          "window.Grid9API && Grid9API.onBack ? Grid9API.onBack() : 'exit'");
+      if (r.toString() == 'exit') await SystemNavigator.pop();
+    } catch (_) {
+      await SystemNavigator.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Hybrid composition: il canvas WebGL del gioco non regge il rendering
     // su SurfaceTexture della modalità default.
-    return Scaffold(
-      backgroundColor: const Color(0xFF171717),
-      body: WebViewWidget.fromPlatformCreationParams(
-        params: AndroidWebViewWidgetCreationParams(
-          controller: _controller.platform,
-          displayWithHybridComposition: true,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) {
+        if (didPop) return;
+        _onSystemBack();
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFF171717),
+        body: WebViewWidget.fromPlatformCreationParams(
+          params: AndroidWebViewWidgetCreationParams(
+            controller: _controller.platform,
+            displayWithHybridComposition: true,
+          ),
         ),
       ),
     );
