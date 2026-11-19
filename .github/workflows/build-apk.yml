@@ -29,6 +29,12 @@ jobs:
           flutter-version: '3.50.0'
           cache: true
 
+      - name: Tuning JVM per CI (override dei limiti impostati per il sandbox)
+        run: |
+          sed -i 's/^org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx6G -XX:MaxMetaspaceSize=1G -XX:+UseG1GC/' android/gradle.properties
+          sed -i 's/^org.gradle.workers.max=.*/org.gradle.workers.max=4/' android/gradle.properties
+          cat android/gradle.properties
+
       - name: Pub get
         run: flutter pub get
 
