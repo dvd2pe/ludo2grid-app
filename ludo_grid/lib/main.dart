@@ -128,6 +128,13 @@ class _LudoShellPageState extends State<LudoShellPage> {
     )
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0xFF171717))
+      // canale JS->Flutter per il tasto indietro: Grid9API.onBack() risponde
+      // 'handled' (mostra la schermata iniziale) oppure 'exit' (chiudi l'app)
+      ..addJavaScriptChannel('G9Back', onMessageReceived: (JavaScriptMessage message) {
+        if (message.message == 'exit') {
+          SystemNavigator.pop();
+        }
+      })
       ..setOnConsoleMessage((message) {
         debugPrint('[Web ${message.level.name}] ${message.message}');
       })
@@ -141,11 +148,12 @@ class _LudoShellPageState extends State<LudoShellPage> {
   /// Tasto indietro Android: dalla tavola torna alla SCHERMATA INIZIALE del
   /// gioco (Grid9API.onBack gestisce l'overlay home in JS); se siamo già in
   /// home, o il gioco non è ancora pronto, l'app si chiude normalmente.
+  /// La risposta arriva via canale G9Back (runJavaScriptReturningFuture non
+  /// è disponibile nella versione di webview_flutter in uso).
   Future<void> _onSystemBack() async {
     try {
-      final r = await _controller.runJavaScriptReturningFuture(
-          "window.Grid9API && Grid9API.onBack ? Grid9API.onBack() : 'exit'");
-      if (r.toString() == 'exit') await SystemNavigator.pop();
+      await _controller.runJavaScript(
+          "if (window.Grid9API && Grid9API.onBack) { G9Back.postMessage(Grid9API.onBack()); } else { G9Back.postMessage('exit'); }");
     } catch (_) {
       await SystemNavigator.pop();
     }
